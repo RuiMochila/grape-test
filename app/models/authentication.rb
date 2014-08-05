@@ -13,26 +13,27 @@
 #
 
 class Authentication < ActiveRecord::Base
-  attr_accessible :provider, :uid, :user_id, :email
+  # attr_accessible :provider, :uid, :user_id, :email
   belongs_to :user
   
-  def self.find_with_auth(auth)
-    find_by_provider_and_uid(auth['provider'], auth['uid'])
+  def self.find_with_auth_data(auth_data)
+    find_by_provider_and_uid('facebook', auth_data['id'])
   end
  
-  def self.create_with_auth(auth)
-  	case auth['provider']
-    when 'facebook'
-    	create(uid: auth['uid'], provider: auth['provider'], email: auth['info']['email'])
-    when 'google_oauth2'
-    	create(uid: auth['uid'], provider: auth['provider'], email: auth['info']['email'])
-    else
-    	create(uid: auth['uid'], provider: auth['provider'])
-    end
-     # and other data you might want from the auth hash
+  # def self.create_with_auth(auth)
+  # 	case auth['provider']
+  #   when 'facebook'
+  #   	create(uid: auth['uid'], provider: auth['provider'], email: auth['info']['email'])
+  #   when 'google_oauth2'
+  #   	create(uid: auth['uid'], provider: auth['provider'], email: auth['info']['email'])
+  #   else
+  #   	create(uid: auth['uid'], provider: auth['provider'])
+  #   end
+  #    # and other data you might want from the auth hash
+  # end
+
+  def self.create_with_auth_data(auth_data)
+    create(uid: auth_data['id'], provider: 'facebook', email: auth_data['email']) #and the remaining fields.
   end
 
-  def self.create_with_fb_graph_response(auth)
-    create(uid: auth['id'], provider: 'facebook', email: auth['email'])
-  end
 end

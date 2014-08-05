@@ -39,23 +39,23 @@ class User < ActiveRecord::Base
 
   before_save { email.downcase! }
   
-  def self.create_with_auth(auth)
-    case auth['provider']
-    when 'facebook'
+  def self.create_with_auth_data(auth)
+    # case auth['provider']
+    # when 'facebook'
     	pass = rand(36**10).to_s(36)
       # birthday = DateTime.strptime(auth['extra']['raw_info']['birthday'], '%m/%d/%Y')
       # now = Time.now.utc.to_date
       # age = now.year - birthday.year - (birthday.to_date.change(:year => now.year) > now ? 1 : 0)
-    	create(name: auth['info']['name'], email: auth['info']['email'], 
+    	create(name: auth['name'], email: auth['email'], 
         	# facebook_url: auth['info']['urls']['Facebook'], location: auth['info']['location'], 
         	# sex: auth['extra']['raw_info']['gender'], age: age,
         	password: pass, password_confirmation: pass)
-    when 'identity'
-    	#This will start to be used
-    else
-      # Some other provider I didn't implemented yet.
-    	'default'
-    end
+    # when 'identity'
+    # 	#This will start to be used
+    # else
+    #   # Some other provider I didn't implemented yet.
+    # 	'default'
+    # end
   end
 
   def link(provider)
