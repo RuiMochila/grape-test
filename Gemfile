@@ -36,6 +36,8 @@ gem 'api-pagination'
 gem 'roar-rails'
 
 gem 'annotate'
+
+gem 'bcrypt-ruby'
 # gem "grape-kaminari"
 
 # Use ActiveModel has_secure_password

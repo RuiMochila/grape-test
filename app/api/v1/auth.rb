@@ -12,12 +12,14 @@ module API
         end
         post :login do
           
-          if params[:login].include?("@")
-            user = User.find_by_email(params[:login].downcase)
-          else
-            user = User.find_by_login(params[:login].downcase)
-          end
+          # if params[:login].include?("@")
+          user = User.find_by_email(params[:login].downcase)
+          # else
+          #   user = User.find_by_login(params[:login].downcase)
+          # end
+          # user = FacebookLoginService.new(env["omniauth.auth"]).user_from_omniauth
 
+          # if user.persisted?
           if user && user.authenticate(params[:password])
             key = ApiKey.create(user_id: user.id)
             {token: key.access_token}

@@ -10,6 +10,15 @@ module API
         get do
           User.all # obviously you never want to call #all here
         end
+        
+        params do
+          requires :token, type: String, desc: "Access token."
+        end
+        get :me do
+          authenticate!
+          @current_user
+        end
+
       end
     end
   end
