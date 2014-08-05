@@ -37,13 +37,7 @@ module API
           
           #Authentication connection logic
           token = params[:token]
-          graph_url = "https://graph.facebook.com/me?access_token=#{token}"
-          uri = URI.parse(graph_url)
-          http = Net::HTTP.new(uri.host, uri.port)
-          http.use_ssl = true
-          http_request = Net::HTTP::Get.new(uri.request_uri)
-          response = http.request(http_request)
-          auth_data = JSON.parse(response.body)
+          auth_data = FbGraphService.new(params[:token]).request
 
           if !auth_data['error'].nil?
             error!('Unauthorized.', 401)
