@@ -1,15 +1,20 @@
 == Grape API and Swagger Test
 
 gem "grape"
+
 Structure files as in /api
+
 Route
+
  mount API::Base => '/api'
+
 
 Swagger documentation
 
 gem 'grape-swagger'
 
 Clone swagger UI: https://github.com/wordnik/swagger-ui
+
 Copy dist content to public/api/docs
 
 Change this line:
